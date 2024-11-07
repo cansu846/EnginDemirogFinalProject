@@ -12,12 +12,32 @@ namespace ConsoleUI
     {
         public static void Main(string[] args)
         {
-            IProductService prodyctManager = new ProductManager(new EfProductDal());
-            foreach (var product in prodyctManager.GetByUnitPrice(100,1000)) {
-                Console.WriteLine(product.ProductName + ", price:  " + product.UnitPrice);
+            ProductTest();
+
+            //CategoryTest();
+
+        }
+
+        private static void CategoryTest()
+        {
+            ICategoryService categoryService = new CategoryManager(new EfCategoryDal());
+            foreach (var category in categoryService.GetAll())
+            {
+                Console.WriteLine(category.CategoryName);
 
             }
 
+            Console.WriteLine("Seçilen kategory: " + categoryService.GetById(5).CategoryName);
+        }
+
+        private static void ProductTest()
+        {
+            IProductService prodyctManager = new ProductManager(new EfProductDal());
+            foreach (var product in prodyctManager.GetProductDetails().Data)
+            {
+                Console.WriteLine(product.ProductName + ", Category Name:  " + product.CategoryName);
+
+            }
         }
     }
  

@@ -1,5 +1,4 @@
-﻿using Entities.Abstract;
-using Entities.Concrete;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+//Core katmanı evrensel katmandır. Her projede kllanılabilir
+//Core katmanı diğer katmanları referans almaz. bu bagımlılık yaratır
+
+namespace Core.DataAccess
 {
     //Generic Constraint
     //class: Referans tip ifade eder.
