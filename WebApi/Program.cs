@@ -1,37 +1,60 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers.Autofac;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-
-//Ioc container configuration
-//Singleton tüm bellekte sadece bir tane productManager nesnesi olu?turur.Tüm clientlar ayn? nesneye ait referans ula??r.
-//Eger içerisinde data tutmayacaksa Singleton kullan?l?r.
-builder.Services.AddSingleton<IProductService, ProductManager>();
-builder.Services.AddSingleton<IProductDal, EfProductDal>();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+internal class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        //Defaultta tan?mlanan configurasyonu bir yukar?da disabele edildi.
+        //Olu?tudugumuz Custom Autofac config uuygulamam?za belirtir.
+        // Autofac'i servis sa?lay?c? olarak kullanmas?n? sa?l?yoruz.
+        builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+        // Autofac modüllerini ya da özel konfigürasyonlar? burada eklenir.
+        builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+        {
+            // Burada özel modülleri veya servisleri kaydedebilirsiniz.
+            containerBuilder.RegisterModule<AutofacBusinessModule>(); // Örnek modül
+        });
+
+
+        // Add services to the container.
+
+        builder.Services.AddControllers();
+
+        //Ioc container configuration
+        //Singleton tüm bellekte sadece bir tane productManager nesnesi olu?turur.Tüm clientlar ayn? nesneye ait referans ula??r.
+        //Eger içerisinde data tutmayacaksa Singleton kullan?l?r.
+        //builder.Services.AddSingleton<IProductService, ProductManager>();
+        //builder.Services.AddSingleton<IProductDal, EfProductDal>();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
