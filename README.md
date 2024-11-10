@@ -1,27 +1,27 @@
 # FinalProject
 
-//B?R MANAGER KEND?S? HAR?� BA?KA B?R DAL(Data Access Layer ?) ENJECTE EDEMEZ
+### Clean Code 
+Bir Manager kendisi hariç başka bir "Data Access Layer"ı implemente edemez. Bunun yerine Servisleri(Service) kullanabilir
 
-//Her entity nin kendine ait ve service si var
+Her Entity nin kendine ait ve Servisi (Service) si vardır.
 
-Installed Belows by using nuget pakages
-Microdoft Entity Framework
-Autofac kullan?lmas?n?n sebebi ayn? zamanda AOP sa?lamas?d?r.
-Autofact --> Autofac, Autofac.Extras.DynamicProxy, Autofac.Extensions.DependencyInjection
-	FluentValidation,
-	Business Projesine eklendi.
+Aşağıdakiler gerekli projelere Nuget pakages kullanılarak indirilmiştir.
+- Microdoft Entity Framework
+- Autofac,
+  - Autofac kullanılmasının sebebi ayı zamanda AOP(Aspect Oriented Programming) sağlamasıdır.
+- Autofac.Extras.DynamicProxy,
+- Autofac.Extensions.DependencyInjection
+- FluentValidation,
 
+WebApi projesinde tanımlanan IoC configurasyonu Business projesi altında DependencyResolvers altında Autofac klasörü altında yer almaktadır.
 
-WebApi projesinde tan?mlanan IoC configurasyonun buraya bag?ml? olmamas? ad?na configurasyonalar?
-Business projesi alt?nda DependencyResolvers alt?nda her bir imlementasyon olu?turulan klas�r alt?nda tan?mland?.
-
-Cross Cutting Concerns (Uygulamay? dikine kesen ilgi alanlar?)
-Uygulamada t�m katmanlarda kullanabilecegi i�in Core k?sm?na yaz?l?r
+Cross Cutting Concerns (Uygulamayı dikine kesen ilgi alanları)
+Uygulamada tüm katmanlarda kullanabilecegi için Core kısmına yazılır.
 	-Log
 	-Cache
 	-Transaction
 	-Authorization
-	- performans y�netimi gibi
+	- performans yönetimi gibi
 
-AOP ile metotlar?n ba??nda, sonunda veya hata verdi?inde cal??t?r?lmak istenen metotlar varsa
-bunlar? design etmeye yarar. Bu yonteme interceptor(interception) denir
+AOP ile metotların başında, sonunda veya hata verdiğinde calıştırmak istenen metotlar varsa
+bunları design etmeye yarar. Bu yonteme interceptor(interception) denir
