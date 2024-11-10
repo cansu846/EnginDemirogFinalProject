@@ -3,7 +3,7 @@
 ### Clean Code 
 Bir Manager kendisi hariç başka bir "Data Access Layer"ı implemente edemez. Bunun yerine Servisleri(Service) kullanabilir
 
-Her Entity nin kendine ait ve Servisi (Service) si vardır.
+Her Entity nin kendine ait ve Servisi (Service) vardır.
 
 Aşağıdakiler gerekli projelere Nuget pakages kullanılarak indirilmiştir.
 - Microdoft Entity Framework
