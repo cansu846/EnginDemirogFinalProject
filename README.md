@@ -1,5 +1,9 @@
 # FinalProject
 
+//B?R MANAGER KEND?S? HAR?Ç BA?KA B?R DAL(Data Access Layer ?) ENJECTE EDEMEZ
+
+//Her entity nin kendine ait ve service si var
+
 Installed Belows by using nuget pakages
 Microdoft Entity Framework
 Autofac kullan?lmas?n?n sebebi ayn? zamanda AOP sa?lamas?d?r.
@@ -17,6 +21,7 @@ Uygulamada tüm katmanlarda kullanabilecegi için Core k?sm?na yaz?l?r
 	-Cache
 	-Transaction
 	-Authorization
+	- performans yönetimi gibi
 
 AOP ile metotlar?n ba??nda, sonunda veya hata verdi?inde cal??t?r?lmak istenen metotlar varsa
 bunlar? design etmeye yarar. Bu yonteme interceptor(interception) denir

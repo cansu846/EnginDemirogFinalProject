@@ -13,5 +13,9 @@ namespace Business.Constants
         public static string ProductListed = "Product listed";
         public static string MaintanenceTime = "Maintanence Time";
         public static string UpdatedProduct = "Product updated";
+        public static string ProdocutCountOfCategoryError = "Prodocut Count Of Category Error";
+
+        public static string ProdocutNameAlreadyExists = "Prodocut name already exists";
+        public static string CategoryLimitExcited = "Category limit excited";
     }
 }

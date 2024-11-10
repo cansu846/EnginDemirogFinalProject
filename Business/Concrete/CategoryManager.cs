@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -15,15 +16,16 @@ namespace Business.Concrete
         public CategoryManager(ICategoryDal _categoryDal) { 
             this._categoryDal = _categoryDal;
         }    
-        public List<Category> GetAll()
-        {
-            return _categoryDal.GetAll();
+        public IDataResult<List<Category>> GetAll()
+        { 
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
         }
-
-        public Category GetById(int categoryId)
+             
+        public IDataResult<Category> GetById(int categoryId)
         {
             //GetAll expression fonksiyon oldugu için lambda fonksiyonu alır.
-            return _categoryDal.Get((c) => c.CategoryId == categoryId);
+            return new SuccessDataResult<Category>(_categoryDal.Get((c) => c.CategoryId == categoryId));
         }
+
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
 using Core.CrossCuttingConcerns;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -21,10 +23,13 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
        private IProductDal _productDal;
-
-        public ProductManager(IProductDal productDal)
+        //Bir manager kendisi dışındaki bir Data Access Layer ı implemente edemez. 
+        //Bunun yerine Service ler kullanılır.
+        ICategoryService _categoryService;
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
-            this._productDal = productDal;
+            _productDal = productDal;
+            _categoryService = categoryService;
         }
 
         [ValidationAspect(typeof(ProductValidator))]
@@ -41,8 +46,61 @@ namespace Business.Concrete
             //}
             //ValidationTool.Validate(new ProductValidator(),product);
 
-             _productDal.Add(product);
+
+            //if (ChekIfProductCountOfCategoryCorrect(product.ProductId).Success)
+            //{
+            //    if (ChekIfProductCountOfCategoryCorrect(product.ProductName).Success)
+            //    {
+            //        _productDal.Add(product);
+            //        return new SuccessResult(Messages.ProductAdded);
+            //    }
+            //}
+
+            //return new ErrorResult(Messages.ProductAdded);
+
+           
+
+            IResult result = BusinessRules.Run(ChekIfProductCountOfCategoryCorrect(product.ProductId),
+                              ChekIfProductCountOfCategoryCorrect(product.ProductName),
+                              CheckIfCategoryLimitExcided());
+
+            if (result != null)
+            {
+                return result;
+            }
+            _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
+        }
+        private IResult CheckIfCategoryLimitExcided()
+        {
+            //15 adetten fazla kategori varsa urun eklenemez.
+            var categoryCount = _categoryService.GetAll().Data.Count();
+            if (categoryCount >= 15)
+            {
+                return new ErrorResult(Messages.CategoryLimitExcited);
+            }
+            return new SuccessResult();
+        }
+        //Aynı isimde urun eklenemez
+       private IResult ChekIfProductCountOfCategoryCorrect(string productName)
+        {   //Bir categoride en fazla 10 urun olabilir.
+            // Once tüm urunleri secip sonradan filtre uygulamıyor. "select count(*) from Products where productId=" şeklinde çalışıyor
+            bool existsProduct = _productDal.GetAll(p => p.ProductName == productName).Any();
+            if (existsProduct)
+            {
+                return new ErrorResult(Messages.ProdocutNameAlreadyExists);
+            }
+            return new SuccessResult();
+        }
+        private IResult ChekIfProductCountOfCategoryCorrect(int categoryId)
+        {   //Bir categoride en fazla 10 urun olabilir.
+            // Once tüm urunleri secip sonradan filtre uygulamıyor. "select count(*) from Products where productId=" şeklinde çalışıyor
+            var products = _productDal.GetAll(p => p.CategoryId == categoryId).Count();
+            if (products >= 10)
+            {
+                return new ErrorResult(Messages.ProdocutCountOfCategoryError);
+            }
+            return new SuccessResult();
         }
 
         public IDataResult<List<Product>> GetAll()
