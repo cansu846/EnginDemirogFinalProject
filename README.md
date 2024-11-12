@@ -24,4 +24,6 @@ Uygulamada tüm katmanlarda kullanabilecegi için Core kısmına yazılır.
 	- performans yönetimi gibi
 
 AOP ile metotların başında, sonunda veya hata verdiğinde calıştırmak istenen metotlar varsa
-bunları design etmeye yarar. Bu yonteme interceptor(interception) denir
+bunları design etmeye yarar. Bu yonteme interceptor(interception) denir.
+
+User, OperationClaims, UserOperationClaims tüm projelerde ortak olan entities ler oldugu için bu Classlar Core/Entities/Concreate altında tanımlandı
