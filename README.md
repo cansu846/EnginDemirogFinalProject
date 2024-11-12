@@ -27,3 +27,6 @@ AOP ile metotların başında, sonunda veya hata verdiğinde calıştırmak iste
 bunları design etmeye yarar. Bu yonteme interceptor(interception) denir.
 
 User, OperationClaims, UserOperationClaims tüm projelerde ortak olan entities ler oldugu için bu Classlar Core/Entities/Concreate altında tanımlandı
+
+- .Net te var olan bir nesneye yeni metotlar eklenebilir buna Extentions denir.
+- Extention için Class ve metotların static yazılması gerekir.

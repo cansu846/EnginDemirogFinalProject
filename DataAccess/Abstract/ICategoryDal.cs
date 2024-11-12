@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface ICategoryDal:IEntitiesRepository<Category>
+    public interface ICategoryDal:IEntityRepository<Category>
     {
         //List<Category> GetAll();
         //T Get();

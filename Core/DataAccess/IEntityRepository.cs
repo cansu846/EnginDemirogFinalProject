@@ -16,7 +16,7 @@ namespace Core.DataAccess
     //IEntit: IEntity olabilir yada IEntity implemente eden class olabilir
     //new(): new lenebilir olmalı
 
-    public interface IEntitiesRepository<T> where T : class, IEntity, new()
+    public interface IEntityRepository<T> where T : class, IEntity, new()
     {   //Expression<Func<T, bool>> ifadesi bir T türünde nesne alıp bool döndüren
         //bir lambda ifadesini veya fonksiyonu kabul eder.
         //Filtre verilirse, Data filtreye göre getirilir.

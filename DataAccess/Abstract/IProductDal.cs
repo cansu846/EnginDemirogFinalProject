@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Abstract
 {
     //Interface metotları default publictir ama sınıfın kendisi internaldır
-    public interface IProductDal:IEntitiesRepository<Product>
+    public interface IProductDal:IEntityRepository<Product>
     {
         //List<Product> GetAll();
         //void Add(Product product);

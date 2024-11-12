@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,14 @@ namespace Business.Constants
 
         public static string ProdocutNameAlreadyExists = "Prodocut name already exists";
         public static string CategoryLimitExcited = "Category limit excited";
+
+        public static string? AuthorizationDenied = "Authorization denied";
+        public static string UserRegistered = "User Registered";
+        public static string UserNotFound = "User not found";
+        public static string PasswordError = "Password error";
+
+        public static string SuccessfulLogin = "Login successful";
+        public static string UserAlreadyExists = "User already exists";
+        public static string AccessTokenCreated = "Access token created";
     }
 }
