@@ -23,12 +23,13 @@ namespace Core.Utilities.Security.JWT
             public JwtHelper(IConfiguration configuration)
             {
                 Configuration = configuration;
-                //Deger almamakta, hatayı çözemedim.DateExpirations manuel deger verdim.
-                _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+                _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>()
+                                   ?? throw new ArgumentNullException("TokenOptions section is missing in configuration.");
 
 
-            }
-            public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
+
+        }
+        public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
             {
                 //_accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
                 _accessTokenExpiration = DateTime.Now.AddMinutes(500);

@@ -4,7 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    // API'nin rota yolunu ayarlar. [controller] ifadesi,
+    // denetleyici adının (bu durumda AuthController) Auth kısmıyla değiştirilmesini sağlar,
+    // böylece rota api/auth olur.
     [Route("api/[controller]")]
+
+    //denetleyicinin bir API denetleyicisi olduğunu belirtir
     [ApiController]
     public class AuthController : Controller
     {

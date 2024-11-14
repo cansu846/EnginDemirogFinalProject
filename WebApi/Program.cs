@@ -2,7 +2,10 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers;
 using Business.DependencyResolvers.Autofac;
+using Core.Extentions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -66,6 +69,11 @@ internal class Program
                 ValidateIssuerSigningKey = true
             };
         });
+        builder.Services.AddDependencyResolvers(new ICoreModule[] {
+        
+            new CoreModule()
+        });
+           
         //Jwt configuration end
 
 
@@ -81,6 +89,7 @@ internal class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+        app.UseAuthentication();
 
         app.MapControllers();
 
